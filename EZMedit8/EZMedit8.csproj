@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Version>0.3.2.1</Version>
+    <Description>Basic guided meditation application</Description>
+    <Company>Brian Crisman</Company>
+    <Authors>Brian Crisman</Authors>
+    <Copyright>© 2021, Brian Crisman</Copyright>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>bcinteractive.pfx</AssemblyOriginatorKeyFile>
+    <UseWindowsForms>True</UseWindowsForms>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Remove="app.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\arrow-up.jpg" />
+    <None Remove="Assets\Background Images\default_background.jpg" />
+    <None Remove="Assets\default_background.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="NAudio" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\arrow-up.jpg" />
+    <Resource Include="Assets\Background Images\default_background.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Audio - Audio Background\000000_babbling-brook.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Audio Background\000001_chanting.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Audio Background\176617_seawash-calm.flac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Audio Background\416621_meditation-impromptu-01.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Audio Background\531505_meditation-in-eternity-loop.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Interval\000000_interval.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Interval\114222_interval-ding.flac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Interval\159011_interval-ding2.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Audio - Interval\411749_interval-ding3.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="EZMedit8.Views.UserControls.SetupControlSections.IntervalControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:custom="clr-namespace:EZMedit8.CustomControls"
+             xmlns:enums="clr-namespace:EZMedit8.Enums"          
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="132" d:DesignWidth="610">
+
+    <i:Interaction.Triggers>
+        <i:PropertyChangedTrigger Binding="{Binding SessionData.Interval.TotalIntervals}">
+            <i:InvokeCommandAction Command="{Binding IntervalPropertyChangedCommand}" CommandParameter="{Binding Path=Binding, RelativeSource={RelativeSource AncestorType={x:Type i:PropertyChangedTrigger}}}" />
+        </i:PropertyChangedTrigger>
+        <i:PropertyChangedTrigger Binding="{Binding SessionData.Interval.TimeRemaining}">
+            <i:InvokeCommandAction Command="{Binding IntervalPropertyChangedCommand}" CommandParameter="{Binding Path=Binding, RelativeSource={RelativeSource AncestorType={x:Type i:PropertyChangedTrigger}}}" />
+        </i:PropertyChangedTrigger>
+    </i:Interaction.Triggers>
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BitmapEffect">
+                <Setter.Value>
+                    <DropShadowBitmapEffect Color="LightSeaGreen" Direction="315" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Margin="-2,0,-2,0">
+                            <Border.Background>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="SeaGreen" Offset="1" />
+                                    <GradientStop Color="MediumSeaGreen" Offset="0" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Grid>
+                                <TextBlock Foreground="{TemplateBinding Foreground}" TextAlignment="Center" VerticalAlignment="Center" Margin="1">
+                                    <ContentPresenter />
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{StaticResource BackgroundInterval}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="10">
+            <Ellipse Fill="{StaticResource BackgroundInterval}" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}">
+                <Ellipse.Effect>
+                    <DropShadowEffect Color="Black" Opacity="0.5" ShadowDepth="4" />
+                </Ellipse.Effect>
+            </Ellipse>
+
+            <TextBlock Text="Interval" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{x:Null}" />
+        </Grid>
+
+        <Viewbox Grid.Column="1">
+            <Grid Margin="10" Width="386.667">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid Width="{Binding RelativeSource={RelativeSource AncestorType=Grid}, Path=ActualWidth}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="60" />
+                        </Grid.ColumnDefinitions>
+
+                        <DockPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <TextBlock Text="Interval Audio" Margin="0,2" />
+                                    <Button Command="{Binding IntervalModeToggleCommand}" Margin="0,2">
+                                        <TextBlock Text="{Binding SessionData.Interval.IntervalMode, Converter={StaticResource intervalModeToStringConverter}}" FontSize="14" IsEnabled="False" />
+                                    </Button>
+                                </StackPanel>
+
+                                <Grid Width="35.78" />
+                            </StackPanel>
+
+                            <custom:CustomStackPanel LinearGradientBrush="{StaticResource BackgroundInterval}">
+                                <Button Name="BtnIntervalAudio" Content="{Binding SessionData.Interval.Filename, TargetNullValue='None', Converter={StaticResource getFileNameFromPathStringConverter}}" Style="{StaticResource ButtonAsTextBlock}" />
+                                <Button Content="{Binding SessionData.Interval.TimeRemaining, TargetNullValue='None'}" Style="{StaticResource ButtonAsTextBlock}" Visibility="{Binding SessionData.Interval.IntervalMode, Converter={StaticResource intervalModeToVisibilityConverter}, ConverterParameter={x:Static enums:IntervalMode.Delay}}" />
+                                <Button Content="{Binding SessionData.Interval.TotalIntervals}" Style="{StaticResource ButtonAsTextBlock}" Visibility="{Binding SessionData.Interval.IntervalMode, Converter={StaticResource intervalModeToVisibilityConverter}, ConverterParameter={x:Static enums:IntervalMode.Count}}" />
+                            </custom:CustomStackPanel>
+                        </DockPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <StackPanel.Resources>
+                                <DropShadowBitmapEffect x:Key="clearButtonDropShadow" Color="Gray" Opacity="0.5" Direction="315" />
+                            </StackPanel.Resources>
+                            
+                            <Button Style="{StaticResource ClearFieldButtonStyle}" Tag="{Binding ElementName=BtnIntervalAudio}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</UserControl>

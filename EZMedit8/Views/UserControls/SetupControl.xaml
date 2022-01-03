@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="EZMedit8.Views.UserControls.SetupControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sCS="clr-namespace:EZMedit8.Views.UserControls.SetupControlSections"
+             xmlns:viewModels="clr-namespace:EZMedit8.ViewModels"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <viewModels:SetupVM x:Key="setupViewModel" />
+    </UserControl.Resources>
+
+    <Border CornerRadius="40" BorderBrush="Black" BorderThickness="0.5" Background="Black" Width="700" Height="688">
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="132" />
+                    <RowDefinition Height="132" />
+                    <RowDefinition Height="132" />
+                    <RowDefinition Height="132" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+
+                <sCS:TitleBarControl Grid.Row="0" />
+
+                <!--Constants-->
+                <sCS:BackgroundFilesControl DataContext="{Binding Source={StaticResource setupViewModel}}" Grid.Row="1" />
+
+                <!--Prepare Timer-->
+                <sCS:PrepareControl DataContext="{Binding Source={StaticResource setupViewModel}}" Grid.Row="2" />
+
+                <!--Meditation Timer-->
+                <sCS:MeditationControl DataContext="{Binding Source={StaticResource setupViewModel}}" Grid.Row="3" />
+
+                <!--Interval Timer-->
+                <sCS:IntervalControl DataContext="{Binding Source={StaticResource setupViewModel}}" Grid.Row="4" />
+
+                <!--Button Panel-->
+                <sCS:ButtonPanelControl Grid.Row="5" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

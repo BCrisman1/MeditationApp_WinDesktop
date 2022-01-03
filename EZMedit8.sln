@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EZMedit8", "EZMedit8\EZMedit8.csproj", "{8B1151E1-68D8-4C1F-A499-D59C9F500A3E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B1151E1-68D8-4C1F-A499-D59C9F500A3E}.Debug|x64.ActiveCfg = Debug|x64
+		{8B1151E1-68D8-4C1F-A499-D59C9F500A3E}.Debug|x64.Build.0 = Debug|x64
+		{8B1151E1-68D8-4C1F-A499-D59C9F500A3E}.Release|x64.ActiveCfg = Release|x64
+		{8B1151E1-68D8-4C1F-A499-D59C9F500A3E}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DC8C78D-7F35-452C-9C24-B2CAD1DEB289}
+	EndGlobalSection
+EndGlobal

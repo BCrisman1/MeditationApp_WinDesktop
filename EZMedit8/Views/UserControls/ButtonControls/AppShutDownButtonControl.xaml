@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="EZMedit8.Views.UserControls.ButtonControls.AppShutDownButtonControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EZMedit8.Views.UserControls"
+             xmlns:viewModels="clr-namespace:EZMedit8.ViewModels"
+             mc:Ignorable="d" DataContext="{StaticResource mainViewModel}">
+
+    <Grid>
+        <Button Content="X" Command="{Binding AppShutDownCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                    <Setter Property="VerticalAlignment" Value="Top" />
+                    <Setter Property="FontSize" Value="24" />
+                    <Setter Property="Background" Value="{StaticResource TitleBarButtonPanelGradient}" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="BorderBrush" Value="DarkSlateBlue" />
+                    <Setter Property="BorderThickness" Value="1" />
+                    <Setter Property="BitmapEffect">
+                        <Setter.Value>
+                            <DropShadowBitmapEffect Color="Gray" Opacity="0.5" Direction="315" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border CornerRadius="100" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="0.5" Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}">
+                                    <Grid>
+                                        <TextBlock Foreground="{TemplateBinding Foreground}" TextAlignment="Center" Margin="6">
+                                            <ContentPresenter />
+                                        </TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</UserControl>

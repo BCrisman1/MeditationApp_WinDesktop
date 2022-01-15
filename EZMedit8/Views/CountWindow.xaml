@@ -1,0 +1,90 @@
+﻿<Window x:Class="EZMedit8.Views.CountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EZMedit8.Views"
+        mc:Ignorable="d"
+        Background="Transparent" WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded"
+        Title="DurationWindow" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Resources/DataContexts.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DropShadowEffect x:Key="ButtonDropShadowEffect" Color="Black" Opacity="0.5" Direction="315" />
+
+            <LinearGradientBrush x:Key="lgbBackground">
+                <GradientStop Color="{Binding Color0, FallbackValue=LightGray, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Offset="0" />
+                <GradientStop Color="{Binding Color1, FallbackValue=Gray, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" Offset="1" />
+            </LinearGradientBrush>
+            
+            <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
+            <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+            <ControlTemplate x:Key="OvalTextBox" TargetType="{x:Type TextBoxBase}">
+                <Border x:Name="border" CornerRadius="8" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
+                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="true">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.MouseOver.Border}"/>
+                    </Trigger>
+                    <Trigger Property="IsKeyboardFocused" Value="true">
+                        <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource TextBox.Focus.Border}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <Binding Source="{StaticResource setupViewModel}" />
+    </Window.DataContext>
+
+    <Grid Margin="10" Width="248">
+        <Border CornerRadius="20" BorderBrush="Black" BorderThickness="1" Background="{StaticResource lgbBackground}">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" ShadowDepth="4" Opacity="0.5" />
+            </Border.Effect>
+
+            <StackPanel Margin="20">
+
+                <Border CornerRadius="8" Background="{StaticResource lgbBackground}" BorderBrush="Black" BorderThickness="1" Effect="{StaticResource ButtonDropShadowEffect}">
+                    <TextBlock Text="Interval Count" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="0,-2,0,2" Effect="{StaticResource ButtonDropShadowEffect}" />
+                </Border>
+
+                <Grid Height="40" />
+
+                <TextBox Template="{DynamicResource OvalTextBox}" GotKeyboardFocus="TextBox_GotKeyboardFocus" KeyDown="TextBox_KeyDown" PreviewTextInput="TextBox_PreviewTextInput">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Text" Value="{Binding SessionData.Interval.TotalIntervals, Converter={StaticResource integerToStringConverter}}" />
+                            <Setter Property="FontSize" Value="30" />
+                            <Setter Property="Width" Value="90" />
+                            <Setter Property="TextAlignment" Value="Center" />
+                            <Setter Property="Padding" Value="0,6" />
+                            <Setter Property="Effect" Value="{StaticResource ButtonDropShadowEffect}" />
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+
+                <Grid Height="40" />
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                    <Button Content="Cancel" Click="BtnCancel_Click" Foreground="Black" FontSize="14" Background="{StaticResource lgbBackground}" Effect="{StaticResource ButtonDropShadowEffect}" />
+
+                    <Grid Width="10" />
+
+                    <Button Content="Confirm" Click="BtnConfirm_Click" Foreground="Black" FontSize="14" Background="{StaticResource lgbBackground}" Effect="{StaticResource ButtonDropShadowEffect}" />
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

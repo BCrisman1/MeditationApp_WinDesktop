@@ -1,4 +1,5 @@
 ﻿using EZMedit8.Enums;
+using EZMedit8.Models.Utilities.NAudio;
 using NAudio.Wave;
 using System;
 using System.Collections.Generic;

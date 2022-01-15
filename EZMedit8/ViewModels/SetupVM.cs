@@ -32,11 +32,11 @@ namespace EZMedit8.ViewModels
         public ICommand IntervalModeToggleCommand { get; set; }
         public bool IntervalModeToggleCanExecute { get => _intervalModeToggleCanExecute; set => SetProperty(ref _intervalModeToggleCanExecute, value); }
 
-        public ICommand IntervalPropertyChangedCommand { get; set; }
-        public bool IntervalPropertyChangedCanExecute { get => _intervalPropertyChangedCanExecute; set => SetProperty(ref _intervalPropertyChangedCanExecute, value); }
+        //public ICommand IntervalPropertyChangedCommand { get; set; }
+        //public bool IntervalPropertyChangedCanExecute { get => _intervalPropertyChangedCanExecute; set => SetProperty(ref _intervalPropertyChangedCanExecute, value); }
 
-        public ICommand MeditationTimerPropertyChangedCommand { get; set; }
-        public bool MeditationTimerPropertyChangedCanExecute { get => _meditationTimerPropertyChangedCanExecute; set => SetProperty(ref _meditationTimerPropertyChangedCanExecute, value); }
+        //public ICommand MeditationTimerPropertyChangedCommand { get; set; }
+        //public bool MeditationTimerPropertyChangedCanExecute { get => _meditationTimerPropertyChangedCanExecute; set => SetProperty(ref _meditationTimerPropertyChangedCanExecute, value); }
         #endregion
 
         #region PROPERTIES: Booleans
@@ -78,8 +78,8 @@ namespace EZMedit8.ViewModels
             EditFieldCommand = new DelegateCommand(EditFieldExecute);
             ClearFieldCommand = new DelegateCommand(ClearFieldExecute);
             IntervalModeToggleCommand = new DelegateCommand(IntervalModeToggleExecute);
-            IntervalPropertyChangedCommand = new DelegateCommand(IntervalPropertyChangedExecute);
-            MeditationTimerPropertyChangedCommand = new DelegateCommand(MeditationTimerPropertyChangedExecute);
+            //IntervalPropertyChangedCommand = new DelegateCommand(IntervalPropertyChangedExecute);
+            //MeditationTimerPropertyChangedCommand = new DelegateCommand(MeditationTimerPropertyChangedExecute);
         }
         #endregion
 
@@ -134,27 +134,27 @@ namespace EZMedit8.ViewModels
             IntervalModeToggleCanExecute = true;
         }
 
-        public void IntervalPropertyChangedExecute(object parameter)
-        {
-            if (!IntervalPropertyChangedCanExecute) { return; }
-            IntervalPropertyChangedCanExecute = false;
+        //public void IntervalPropertyChangedExecute(object parameter)
+        //{
+        //    if (!IntervalPropertyChangedCanExecute) { return; }
+        //    IntervalPropertyChangedCanExecute = false;
 
-            if (parameter is TimeSpan) { SessionData.Interval.IntervalDelay = SessionData.Interval.TimeRemaining; }
-            if (parameter is int && SessionData.Interval.TotalIntervals > 0 && SessionData.MeditationTimer.TimeRemaining != TimeSpan.Zero)
-            { CalculateIntervalDelay(); }
+        //    if (parameter is TimeSpan) { SessionData.Interval.IntervalDelay = SessionData.Interval.TimeRemaining; }
+        //    if (parameter is int && SessionData.Interval.TotalIntervals > 0 && SessionData.MeditationTimer.TimeRemaining != TimeSpan.Zero)
+        //    { CalculateIntervalDelay(); }
 
-            IntervalPropertyChangedCanExecute = true;
-        }
+        //    IntervalPropertyChangedCanExecute = true;
+        //}
 
-        public void MeditationTimerPropertyChangedExecute(object parameter)
-        {
-            if (!MeditationTimerPropertyChangedCanExecute) { return; }
-            MeditationTimerPropertyChangedCanExecute = false;
+        //public void MeditationTimerPropertyChangedExecute(object parameter)
+        //{
+        //    if (!MeditationTimerPropertyChangedCanExecute) { return; }
+        //    MeditationTimerPropertyChangedCanExecute = false;
 
-            if (parameter is TimeSpan && SessionData.MeditationTimer.TimeRemaining > TimeSpan.Zero && SessionData.Interval.TotalIntervals > 0) { CalculateIntervalDelay(); }
+        //    if (parameter is TimeSpan && SessionData.MeditationTimer.TimeRemaining > TimeSpan.Zero && SessionData.Interval.TotalIntervals > 0) { CalculateIntervalDelay(); }
 
-            MeditationTimerPropertyChangedCanExecute = true;
-        }
+        //    MeditationTimerPropertyChangedCanExecute = true;
+        //}
         #endregion
 
         #region METHODS: Helpers
@@ -226,10 +226,12 @@ namespace EZMedit8.ViewModels
 
         private void SetCount(LinearGradientBrush brush)
         {
+            var oldCount = SessionData.Interval.TotalIntervals;
             var countWindow = new CountWindow(brush);
-            countWindow.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(i => i.IsActive);
-            countWindow.DataContext = this;
+            countWindow.Owner = Application.Current.Windows.OfType<Window>().SingleOrDefault(i => i.IsActive);            
             countWindow.ShowDialog();
+
+            if (!countWindow.Confirmed) { SessionData.Interval.TotalIntervals = oldCount; }
         }
 
         private void CalculateIntervalDelay()

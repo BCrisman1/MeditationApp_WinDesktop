@@ -76,6 +76,7 @@ namespace EZMedit8.Views
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            
             Confirmed = false;
             Close();
         }
@@ -83,7 +84,10 @@ namespace EZMedit8.Views
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (sender is not TextBox) { return; }
-            (sender as TextBox).CaretIndex = (sender as TextBox).Text.Length;
+            var textBox = sender as TextBox;
+
+            (sender as TextBox).CaretIndex = textBox.Text.Length;
+            (sender as TextBox).SelectAll();
         }
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
@@ -97,7 +101,8 @@ namespace EZMedit8.Views
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             if (sender is not TextBox) { return; }
-            e.Handled = e.Text.ToCharArray().Any(i => !char.IsDigit(i)) || ((sender as TextBox).Text.Length + e.Text.Length) >= 4;
+            var textBox = sender as TextBox;
+            e.Handled = e.Text.ToCharArray().Any(i => !char.IsDigit(i)) || (textBox.SelectionLength == 0 && textBox.Text.Length + e.Text.Length > 3);
         }
         #endregion
     }
